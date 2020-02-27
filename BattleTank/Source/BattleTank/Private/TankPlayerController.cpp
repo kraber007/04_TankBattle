@@ -19,7 +19,7 @@ void ATankPlayerController::BeginPlay()
         UE_LOG(LogTemp,Warning, TEXT("Player is controlling %s"),*MyTank->GetName()); 
     }
     
-
+    
 }
 
 void ATankPlayerController::Tick(float DeltaTime)
@@ -31,5 +31,18 @@ void ATankPlayerController::Tick(float DeltaTime)
 ATank* ATankPlayerController::GetControlledTank() const 
 {
     return Cast<ATank>(GetPawn());
+}
+
+void ATankPlayerController::AimTowardsCrosshair()
+{
+    if(!GetControlledTank()) {return; }
+    FVector HitLocation;
+    GetSightRayHitLocation(HitLocation);
+
+}
+
+bool ATankPlayerController::GetSightRayHitLocation(FVector& HitLocation) const
+{
+
 }
 
