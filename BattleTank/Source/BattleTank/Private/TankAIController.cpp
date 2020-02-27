@@ -25,7 +25,7 @@ void ATankAIController::BeginPlay()
     {
         UE_LOG(LogTemp, Warning, TEXT("%s has found %s"), *GetName(), *PlayerTank->GetName());
     }
-    
+    LaunchSpeed = PossessedTank->LaunchSpeed; 
 }
 
 void ATankAIController::Tick(float DeltaTime)
@@ -35,7 +35,7 @@ void ATankAIController::Tick(float DeltaTime)
     FVector HitLocation;
     //ATank* PlayerTank = Cast<ATank>( GetWorld()->GetFirstPlayerController()->GetPawn() );
     HitLocation = GetPlayerTank()->GetActorLocation();
-    GetControlledTank()->AimAt(HitLocation);
+    GetControlledTank()->AimAt(HitLocation, LaunchSpeed);
 }
 
 ATank* ATankAIController::GetControlledTank() const

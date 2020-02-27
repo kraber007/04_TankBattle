@@ -25,4 +25,5 @@ protected:
 private:	
 	ATank* GetControlledTank() const;
 	ATank* GetPlayerTank() const;
+	float LaunchSpeed;
 };

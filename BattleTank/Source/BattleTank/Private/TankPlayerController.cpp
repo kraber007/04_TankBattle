@@ -19,7 +19,7 @@ void ATankPlayerController::BeginPlay()
     {
         UE_LOG(LogTemp,Warning, TEXT("Player is controlling %s"),*MyTank->GetName()); 
     }
-    
+    LaunchSpeed = MyTank->LaunchSpeed;
     
 }
 
@@ -40,7 +40,7 @@ void ATankPlayerController::AimTowardsCrosshair()
     if(!GetControlledTank()) {return; }
     FVector HitLocation;               // Out Parameter
     GetSightRayHitLocation(HitLocation);
-    GetControlledTank()->AimAt(HitLocation);
+    GetControlledTank()->AimAt(HitLocation, LaunchSpeed);
 
 }
 

@@ -36,5 +36,7 @@ private:
 	UPROPERTY(EditAnywhere)
 	float CrossHairLocationY = 0.3333;
 
+	float LaunchSpeed;
+
 
 };
