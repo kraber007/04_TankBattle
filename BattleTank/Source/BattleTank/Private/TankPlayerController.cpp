@@ -18,7 +18,7 @@ void ATankPlayerController::BeginPlay()
     {
         UE_LOG(LogTemp,Warning, TEXT("Player is controlling %s"),*MyTank->GetName()); 
     }
-    AimTowardsCrosshair();
+    
     
 }
 
@@ -26,6 +26,7 @@ void ATankPlayerController::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
     //UE_LOG(LogTemp, Warning, TEXT("%s is Ticking"), *GetName());
+    AimTowardsCrosshair();
 }
 
 ATank* ATankPlayerController::GetControlledTank() const 
@@ -38,6 +39,7 @@ void ATankPlayerController::AimTowardsCrosshair()
     if(!GetControlledTank()) {return; }
     FVector HitLocation;               // Out Parameter
     GetSightRayHitLocation(HitLocation);
+    UE_LOG(LogTemp, Warning, TEXT("AimDirection: %s"), *HitLocation.ToString());
 
 }
 
@@ -46,7 +48,11 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& HitLocation) const
     int32 ViewportSizeX, ViewportSizeY ;         //Out Parameters
     GetViewportSize(ViewportSizeX, ViewportSizeY);
     auto ScreenLocation = FVector2D(ViewportSizeX*CrossHairLocationX, ViewportSizeY*CrossHairLocationY) ;
-    UE_LOG(LogTemp, Warning, TEXT("ScreenLocation: %s"), *ScreenLocation.ToString());
+
+    //Getting unitvector along lookDirection
+    FVector CameraWorldLocation, WorldDirection ;   // To be discarded and Out parameter
+    DeprojectScreenPositionToWorld(ScreenLocation.X, ScreenLocation.Y, CameraWorldLocation, WorldDirection) ;
+    HitLocation = WorldDirection ; // temperory##################################################################################################################
 
     return true;
 }
