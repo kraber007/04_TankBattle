@@ -32,3 +32,7 @@ void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
 	// ...
 }
 
+void UTankAimingComponent::AimAt(FVector HitLocation)
+{
+	UE_LOG(LogTemp, Warning, TEXT("%s Aiming at: %s"),*GetOwner()->GetName(), *HitLocation.ToString());
+}
