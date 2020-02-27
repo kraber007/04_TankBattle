@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
+#include "Engine/World.h"
+#include "GameFramework/PlayerController.h"
 #include "TankAIController.h"
 
 void ATankAIController::BeginPlay()
@@ -25,6 +26,16 @@ void ATankAIController::BeginPlay()
         UE_LOG(LogTemp, Warning, TEXT("%s has found %s"), *GetName(), *PlayerTank->GetName());
     }
     
+}
+
+void ATankAIController::Tick(float DeltaTime)
+{
+    Super::Tick(DeltaTime);
+
+    FVector HitLocation;
+    //ATank* PlayerTank = Cast<ATank>( GetWorld()->GetFirstPlayerController()->GetPawn() );
+    HitLocation = GetPlayerTank()->GetActorLocation();
+    GetControlledTank()->AimAt(HitLocation);
 }
 
 ATank* ATankAIController::GetControlledTank() const
