@@ -16,6 +16,9 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 	GENERATED_BODY()
 
 public:
+	virtual void Tick(float DeltaTime) override;
+
+protected:
 	virtual void BeginPlay() override ;
 
 private:	
