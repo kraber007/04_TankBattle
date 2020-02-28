@@ -9,7 +9,8 @@
 
 class UTankBarrel;
 class UTankTurret;
-class UTankAimingComponent;       //forward declarations
+class UTankAimingComponent;  
+class AProjectile;            //forward declarations
 
 UCLASS()
 class BATTLETANK_API ATank : public APawn
@@ -45,4 +46,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void Fire();
 
+	UPROPERTY(EditAnywhere, Category = Setup)
+	TSubclassOf<AProjectile> ProjectileBlueprint;
+
+	UTankBarrel* Barrel = nullptr;  //local barrel reference for spawning projectile
 };
