@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Engine/World.h"
+#include "Tank.h"
 #include "GameFramework/PlayerController.h"
 #include "TankAIController.h"
 
@@ -11,19 +12,19 @@ void ATankAIController::BeginPlay()
     auto PlayerTank = GetPlayerTank();
     if(!PossessedTank)
     {
-        UE_LOG(LogTemp, Warning, TEXT("AI Controlled Tank not found"));
+       // UE_LOG(LogTemp, Warning, TEXT("AI Controlled Tank not found"));
     }
     else
     {
-        UE_LOG(LogTemp, Warning, TEXT("%s has possessed %s"), *GetName(), *PossessedTank->GetName());
+       // UE_LOG(LogTemp, Warning, TEXT("%s has possessed %s"), *GetName(), *PossessedTank->GetName());
     }
     if(!PlayerTank)
     {
-        UE_LOG(LogTemp, Warning, TEXT("AI tank can't find player tank"));
+       // UE_LOG(LogTemp, Warning, TEXT("AI tank can't find player tank"));
     }
     else
     {
-        UE_LOG(LogTemp, Warning, TEXT("%s has found %s"), *GetName(), *PlayerTank->GetName());
+        //UE_LOG(LogTemp, Warning, TEXT("%s has found %s"), *GetName(), *PlayerTank->GetName());
     }
     LaunchSpeed = PossessedTank->LaunchSpeed; 
 }

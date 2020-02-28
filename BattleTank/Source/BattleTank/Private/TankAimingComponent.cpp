@@ -36,7 +36,7 @@ void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
 void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 {
 	auto BarrelLocation = Barrel->GetComponentLocation();
-	UE_LOG(LogTemp, Warning, TEXT("%s Aiming at: %s from %s  and Will fire at will at %f"),*GetOwner()->GetName(), *HitLocation.ToString(), *BarrelLocation.ToString(), LaunchSpeed);
+	//UE_LOG(LogTemp, Warning, TEXT("%s Aiming at: %s from %s  and Will fire at will at %f"),*GetOwner()->GetName(), *HitLocation.ToString(), *BarrelLocation.ToString(), LaunchSpeed);
 	if(!Barrel){return ;}
 	
 	FVector OutTossVelocity{0};
@@ -57,9 +57,10 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 	{
 		auto AimDirection = OutTossVelocity.GetSafeNormal();
 		MoveBarrelTowards(AimDirection);
+		UE_LOG(LogTemp, Warning, TEXT("%f : Aiming Solution found"), GetWorld()->GetTimeSeconds());
 	}
 
-	else{return;}
+	else{UE_LOG(LogTemp, Warning, TEXT("%f : BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBb"), GetWorld()->GetTimeSeconds());}
 
 }
 
@@ -72,7 +73,7 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 {
 	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
 	auto AimAsRotator = AimDirection.Rotation();
-	UE_LOG(LogTemp, Warning, TEXT("Aiming rotator is %s"), *AimAsRotator.ToString());
+	//UE_LOG(LogTemp, Warning, TEXT("Aiming rotator is %s"), *AimAsRotator.ToString());
 	auto DeltaRotator = AimAsRotator - BarrelRotator;
 
 	Barrel->Elevate(5);

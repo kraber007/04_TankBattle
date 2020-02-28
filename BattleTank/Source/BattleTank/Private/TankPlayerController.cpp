@@ -1,8 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "TankPlayerController.h"
 #include "Engine/World.h"
 #include "Camera/PlayerCameraManager.h"
+#include "Tank.h"
+#include "TankPlayerController.h"
+
 
 void ATankPlayerController::BeginPlay()
 {
@@ -13,11 +15,11 @@ void ATankPlayerController::BeginPlay()
     ATank* MyTank = GetControlledTank();
     if(!MyTank)
     {
-        UE_LOG(LogTemp, Warning, TEXT("Player Tank not found"));
+        //UE_LOG(LogTemp, Warning, TEXT("Player Tank not found"));
     }
     else
     {
-        UE_LOG(LogTemp,Warning, TEXT("Player is controlling %s"),*MyTank->GetName()); 
+       // UE_LOG(LogTemp,Warning, TEXT("Player is controlling %s"),*MyTank->GetName()); 
     }
     LaunchSpeed = MyTank->LaunchSpeed;
     
