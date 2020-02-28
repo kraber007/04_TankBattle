@@ -20,7 +20,7 @@ public:
 private:
 
 	UPROPERTY(EditAnywhere, Category = TankBarrel_Setup)
-	float MaxDegreesPerSecond = 20;  //assuming default
+	float MaxDegreesPerSecond = 10;  //assuming default
 
 	UPROPERTY(EditAnywhere, Category = TankBarrel_Setup)
 	float MaxElevationDegrees = 40;

@@ -10,7 +10,7 @@ void ATankPlayerController::BeginPlay()
 {
     Super::BeginPlay();
 
-    UE_LOG(LogTemp, Warning, TEXT("Helo there from TankPlayerController"));
+    //UE_LOG(LogTemp, Warning, TEXT("Helo there from TankPlayerController"));
 
     ATank* MyTank = GetControlledTank();
     if(!MyTank)

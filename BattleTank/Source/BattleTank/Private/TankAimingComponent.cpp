@@ -2,6 +2,7 @@
 
 #include "Kismet/GameplayStatics.h"
 #include "TankBarrel.h"
+#include "TankTurret.h"
 #include "TankAimingComponent.h"
 
 // Sets default values for this component's properties
@@ -9,7 +10,7 @@ UTankAimingComponent::UTankAimingComponent()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = true;
+	PrimaryComponentTick.bCanEverTick = false;
 
 	// ...
 }
@@ -57,10 +58,10 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 	{
 		auto AimDirection = OutTossVelocity.GetSafeNormal();
 		MoveBarrelTowards(AimDirection);
-		UE_LOG(LogTemp, Warning, TEXT("%f : Aiming Solution found"), GetWorld()->GetTimeSeconds());
+		//UE_LOG(LogTemp, Warning, TEXT("%f : Aiming Solution found"), GetWorld()->GetTimeSeconds());
 	}
 
-	else{UE_LOG(LogTemp, Warning, TEXT("%f : BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBb"), GetWorld()->GetTimeSeconds());}
+	else{}
 
 }
 
@@ -69,12 +70,20 @@ void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet)
 	Barrel = BarrelToSet;
 }
 
+void UTankAimingComponent::SetTurretReference(UTankTurret* TurretToSet)
+{
+	Turret = TurretToSet;
+}
+
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 {
 	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
+	auto TurretRotator = Turret->GetForwardVector().Rotation();
 	auto AimAsRotator = AimDirection.Rotation();
 	//UE_LOG(LogTemp, Warning, TEXT("Aiming rotator is %s"), *AimAsRotator.ToString());
-	auto DeltaRotator = AimAsRotator - BarrelRotator;
+	auto DeltaRotatorBarrel = AimAsRotator - BarrelRotator;		   //I think these two will be same
+	auto DeltaRotatorTurret = AimAsRotator - TurretRotator;        //I think these two will be same
 
-	Barrel->Elevate(DeltaRotator.Pitch);  //TODO remove magic number
+	Barrel->Elevate(DeltaRotatorBarrel.Pitch);  //TODO remove magic number
+	Turret->RotateTurret(DeltaRotatorTurret.Yaw);
 }
