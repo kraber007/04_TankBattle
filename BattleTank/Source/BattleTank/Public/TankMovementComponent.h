@@ -27,9 +27,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category = Setupsi)
 	void Initialise(UTankTrack* LeftTrack, UTankTrack* RightTrack);
 
-	virtual void RequestDirectMove(const FVector & MoveVelocity,bool bForceMaxSpeed) override;
-
 private:
+	virtual void RequestDirectMove(const FVector & MoveVelocity,bool bForceMaxSpeed) override;
 	UTankTrack* LeftTrack = nullptr;
 	UTankTrack* RightTrack = nullptr;
 	
