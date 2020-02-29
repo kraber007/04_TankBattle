@@ -19,12 +19,12 @@ public:
 
 private:
 
-	UPROPERTY(EditAnywhere, Category = TankBarrel_Setup)
+	UPROPERTY(EditDefaultsOnly, Category = TankBarrel_Setup)
 	float MaxDegreesPerSecond = 10;  //assuming default
 
-	UPROPERTY(EditAnywhere, Category = TankBarrel_Setup)
+	UPROPERTY(EditDefaultsOnly, Category = TankBarrel_Setup)
 	float MaxElevationDegrees = 40;
 
-	UPROPERTY(EditAnywhere, Category = TankBarrel_Setup)
+	UPROPERTY(EditDefaultsOnly, Category = TankBarrel_Setup)
 	float MinElevationDegrees = 0;
 };
