@@ -23,12 +23,6 @@ public:
 	ATank();
 	void AimAt(FVector HitLocation, float LaunchSpeed1);
 
-	UFUNCTION(BlueprintCallable, Category = Setup)
-	void SetBarrelReference(UTankBarrel* BarrelToSet) ;
-
-	UFUNCTION(BlueprintCallable, Category = Setup)
-	void SetTurretReference(UTankTurret* TurretToSet) ;
-
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -40,11 +34,6 @@ protected:
 	UTankMovementComponent* TankMovementComponent = nullptr;
 
 public:	
-	// Called every frame
-//	virtual void Tick(float DeltaTime) override;
-
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	UPROPERTY(EditDefaultsOnly, Category = Firing)
 	float LaunchSpeed = 100000 ;
