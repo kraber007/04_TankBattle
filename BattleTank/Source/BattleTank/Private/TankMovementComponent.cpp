@@ -5,14 +5,14 @@
 
 void UTankMovementComponent::IntendMoveForward(float Throw)
 {
-    UE_LOG(LogTemp, Warning, TEXT("throw: %f"), Throw);
+    //UE_LOG(LogTemp, Warning, TEXT("throw: %f"), Throw);
     LeftTrack->SetThrottle(Throw);
     RightTrack->SetThrottle(Throw);
 }
 
 void UTankMovementComponent::IntendTurnRight(float Throw)
 {
-    UE_LOG(LogTemp, Warning, TEXT("throw: %f"), Throw);
+    //UE_LOG(LogTemp, Warning, TEXT("throw: %f"), Throw);
     LeftTrack->SetThrottle(Throw);
     RightTrack->SetThrottle(-Throw);
 }
@@ -21,4 +21,11 @@ void UTankMovementComponent::Initialise(UTankTrack* LeftTrackToSet, UTankTrack* 
 {
     LeftTrack = LeftTrackToSet;
     RightTrack = RightTrackToSet;
+    
+}
+
+void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity,bool bForceMaxSpeed)
+{
+    auto  TankName = GetOwner()->GetName();
+    UE_LOG(LogTemp, Warning, TEXT("%s moving with %s"), *TankName, *MoveVelocity.ToString());
 }
