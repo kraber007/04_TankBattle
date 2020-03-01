@@ -8,6 +8,7 @@ AProjectile::AProjectile()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
+
 	CollisionMesh = CreateDefaultSubobject<UStaticMeshComponent>(FName("CollisionMeshi"));
 	SetRootComponent(CollisionMesh);
 	CollisionMesh->SetNotifyRigidBodyCollision(true);
@@ -23,12 +24,17 @@ AProjectile::AProjectile()
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(FName("Projectile Componenti"));
 	if(!ensure(ProjectileMovement)){return ;}
 	ProjectileMovement->bAutoActivate = false;
+
+	ExplosionImpulse = CreateDefaultSubobject<URadialForceComponent>(FName("Explosion Impulse helo"));
+	ExplosionImpulse->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
+
 }
 
 void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit)
 {
 	LaunchBlast->Deactivate();
 	ImpactBlast->Activate();
+	ExplosionImpulse->FireImpulse();
 }
 // Called when the game starts or when spawned
 void AProjectile::BeginPlay()
