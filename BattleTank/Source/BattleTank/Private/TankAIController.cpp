@@ -18,13 +18,13 @@ void ATankAIController::Tick(float DeltaTime)
     //auto Player = Cast<ATank>() ;
     auto ControlledTankAimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
     
-    //if(!ensure(PlayerTank && ControlledTank)){return ;}
+    if(!ensure(ControlledTankAimingComponent)){return ;}
     ControlledTankAimingComponent->AimAt(GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation());
-
-    /*
-    ControlledTank->Fire(); 
-    MoveToActor(PlayerTank, AcceptanceRadius);   TODO uncomment
-    */
+    ControlledTankAimingComponent->Fire();
+    MoveToActor(GetWorld()->GetFirstPlayerController()->GetPawn(), AcceptanceRadius);
+    
+    
+    
 
 }
 
