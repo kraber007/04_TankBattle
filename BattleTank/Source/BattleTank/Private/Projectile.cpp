@@ -7,8 +7,20 @@
 AProjectile::AProjectile()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
-	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(FName("Projectile Component"));
+	PrimaryActorTick.bCanEverTick = false;
+	CollisionMesh = CreateDefaultSubobject<UStaticMeshComponent>(FName("CollisionMeshi"));
+	SetRootComponent(CollisionMesh);
+	CollisionMesh->SetNotifyRigidBodyCollision(true);
+	CollisionMesh->SetVisibility(false);
+
+	LaunchBlast = CreateDefaultSubobject<UParticleSystemComponent>(FName("LaunchBlasti"));
+	LaunchBlast->AttachTo(RootComponent);
+
+	ImpactBlast = CreateDefaultSubobject<UParticleSystemComponent>(FName("Impact Blast"));
+	ImpactBlast->AttachTo(RootComponent);
+	ImpactBlast->bAutoActivate = false;
+
+	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(FName("Projectile Componenti"));
 	if(!ensure(ProjectileMovement)){return ;}
 	ProjectileMovement->bAutoActivate = false;
 }
@@ -18,13 +30,6 @@ void AProjectile::BeginPlay()
 {
 	Super::BeginPlay();
 	
-}
-
-// Called every frame
-void AProjectile::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
 }
 
 void AProjectile::LaunchProjectile(float Speed)

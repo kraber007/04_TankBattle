@@ -35,8 +35,7 @@ public:
 	float ReloadTimeInSeconds = 0.1;
 	double LastFireTime = 0;
 	
-	UPROPERTY(EditDefaultsOnly, Category = Setup)
-	TSubclassOf<AProjectile> ProjectileBlueprint;
+	
 
 	EFiringStatus GetFiringStatus() const;
 
@@ -50,7 +49,7 @@ protected:
 	UPROPERTY(BlueprintReadOnly, Category = "FiringState")
 	EFiringStatus FiringState = EFiringStatus::Reloading;
 
-private:
+public:
     UTankAimingComponent();
 	UTankBarrel* Barrel = nullptr; 
 	UTankTurret* Turret = nullptr;
@@ -58,6 +57,9 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category = Firing)
 	float LaunchSpeed = 10000 ;
+
+	UPROPERTY(EditDefaultsOnly, Category = Setup)
+	TSubclassOf<AProjectile> ProjectileBlueprint;
 
 	FVector AimDirection;
 	bool IsBarrelMoving();
