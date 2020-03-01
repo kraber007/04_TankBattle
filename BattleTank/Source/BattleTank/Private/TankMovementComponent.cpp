@@ -5,14 +5,14 @@
 
 void UTankMovementComponent::IntendMoveForward(float Throw)
 {
-    //UE_LOG(LogTemp, Warning, TEXT("throw: %f"), Throw);
+    if(!ensure(LeftTrack && RightTrack)){return;}
     LeftTrack->SetThrottle(Throw);
     RightTrack->SetThrottle(Throw);
 }
 
 void UTankMovementComponent::IntendTurnRight(float Throw)
 {
-    //UE_LOG(LogTemp, Warning, TEXT("throw: %f"), Throw);
+    if(!ensure(LeftTrack && RightTrack)){return;}
     LeftTrack->SetThrottle(Throw);
     RightTrack->SetThrottle(-Throw);
 }
@@ -35,7 +35,7 @@ void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity,bool
     auto SineTheta = FVector::CrossProduct(MoveVelocityIntention, TankForward) ;
     auto xxx = (SineTheta.Size())*(FMath::Sign(SineTheta.Z))*(-1);
     IntendTurnRight(xxx);
-    //UE_LOG(LogTemp, Warning, TEXT("%f: moving with: %f"), GetWorld()->GetTimeSeconds(), CosTheta);
-    //UE_LOG(LogTemp, Warning, TEXT("%f: cross AAAAAAAAAAAAAA with: %f"), GetWorld()->GetTimeSeconds(), xxx);
+    ////UE_LOG(LogTemp, Warning, TEXT("%f: moving with: %f"), GetWorld()->GetTimeSeconds(), CosTheta);
+    ////UE_LOG(LogTemp, Warning, TEXT("%f: cross AAAAAAAAAAAAAA with: %f"), GetWorld()->GetTimeSeconds(), xxx);
 }
 

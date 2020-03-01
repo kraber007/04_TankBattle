@@ -3,6 +3,7 @@
 #include "Engine/World.h"
 #include "Camera/PlayerCameraManager.h"
 #include "Tank.h"
+#include "TankAimingComponent.h"
 #include "TankPlayerController.h"
 
 
@@ -10,19 +11,13 @@ void ATankPlayerController::BeginPlay()
 {
     Super::BeginPlay();
 
-    //UE_LOG(LogTemp, Warning, TEXT("Helo there from TankPlayerController"));
-
     ATank* MyTank = GetControlledTank();
-    if(!MyTank)
-    {
-        //UE_LOG(LogTemp, Warning, TEXT("Player Tank not found"));
-    }
-    else
-    {
-       // UE_LOG(LogTemp,Warning, TEXT("Player is controlling %s"),*MyTank->GetName()); 
-    }
+    if(!ensure(MyTank)){return ;}
     LaunchSpeed = MyTank->LaunchSpeed;
-    
+    auto AimingComponent = MyTank->FindComponentByClass<UTankAimingComponent>();
+
+    if(!ensure(AimingComponent)){return ;}
+    FoundAimingComponent(AimingComponent);
 }
 
 void ATankPlayerController::Tick(float DeltaTime)
@@ -39,7 +34,7 @@ ATank* ATankPlayerController::GetControlledTank() const
 
 void ATankPlayerController::AimTowardsCrosshair()
 {
-    if(!GetControlledTank()) {return; }
+    if(!ensure(GetControlledTank())) {return; }
     FVector HitLocation;               // Out Parameter
     GetSightRayHitLocation(HitLocation);
     GetControlledTank()->AimAt(HitLocation, LaunchSpeed);

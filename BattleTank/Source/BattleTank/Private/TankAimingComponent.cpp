@@ -36,9 +36,8 @@ void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
 
 void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 {
+	if(!ensure(Barrel)){return ;}
 	auto BarrelLocation = Barrel->GetComponentLocation();
-	//UE_LOG(LogTemp, Warning, TEXT("%s Aiming at: %s from %s  and Will fire at will at %f"),*GetOwner()->GetName(), *HitLocation.ToString(), *BarrelLocation.ToString(), LaunchSpeed);
-	if(!Barrel){return ;}
 	
 	FVector OutTossVelocity{0};
 	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
@@ -73,6 +72,7 @@ void UTankAimingComponent::InitialiseBarrelTurret(UTankTurret* TurretToSet, UTan
 
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 {
+	if(!ensure(Barrel && Turret)){return ;}
 	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
 	auto TurretRotator = Turret->GetForwardVector().Rotation();
 	auto AimAsRotator = AimDirection.Rotation();
