@@ -41,7 +41,7 @@ public:
 	EFiringStatus GetFiringStatus() const;
 
 	UFUNCTION(BlueprintCallable, Category = "Ammo")
-	int GetTotalAmmo() const;
+	int32 GetTotalAmmo() const;
 
 protected:
 	// Called when the game starts
@@ -63,6 +63,6 @@ private:
 	bool IsBarrelMoving();
 
 	UPROPERTY(EditDefaultsOnly, Category = "TotalAmmo")
-	int TotalAmmo = 10;
+	int32 TotalAmmo = 10;
 	
 };
