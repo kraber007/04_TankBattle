@@ -18,6 +18,8 @@ public:
 	UFUNCTION(BlueprintCallable , Category = Input)
 	void SetThrottle(float Throttle);
 
+	void DriveTrack();
+
 	UPROPERTY(EditDefaultsOnly, Category = Drive)  //in newtons
 	float TrackMaxDrivingForce = 40000000;
 
@@ -28,4 +30,7 @@ private:
 
 	UFUNCTION()
 	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit);
+	void ApplySidewaysForce();
+
+	float CurrentThrottle = 0;
 };
