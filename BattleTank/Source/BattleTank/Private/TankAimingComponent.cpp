@@ -104,11 +104,11 @@ void UTankAimingComponent::MoveBarrelTowards()
 	auto DeltaRotatorTurret = AimAsRotator - TurretRotator;        //I think these two will be same
 
 	Barrel->Elevate(DeltaRotatorBarrel.Pitch);  //TODO remove magic number
-	if(DeltaRotatorTurret.Yaw <=180)
+	if(FMath::Abs(DeltaRotatorTurret.Yaw) <=180)
 	{
 	Turret->RotateTurret(DeltaRotatorTurret.Yaw);
 	}
-	else
+	else // avoid going the long way
 	{
 		Turret->RotateTurret(-DeltaRotatorTurret.Yaw);
 	}
