@@ -34,7 +34,7 @@ void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
 	// ...
 }
 
-void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
+void UTankAimingComponent::AimAt(FVector HitLocation)
 {
 	if(!ensure(Barrel)){return ;}
 	auto BarrelLocation = Barrel->GetComponentLocation();
@@ -59,10 +59,8 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 		MoveBarrelTowards(AimDirection);
 		//UE_LOG(LogTemp, Warning, TEXT("%f : Aiming Solution found"), GetWorld()->GetTimeSeconds());
 	}
-
-	else{}
-
 }
+
 
 void UTankAimingComponent::InitialiseBarrelTurret(UTankTurret* TurretToSet, UTankBarrel* BarrelToSet)
 {
