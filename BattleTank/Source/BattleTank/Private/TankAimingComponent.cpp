@@ -16,6 +16,10 @@ UTankAimingComponent::UTankAimingComponent()
 	// ...
 }
 
+EFiringStatus UTankAimingComponent::GetFiringStatus() const
+{
+	return FiringState;
+}
 
 // Called when the game starts
 void UTankAimingComponent::BeginPlay()
@@ -96,7 +100,15 @@ void UTankAimingComponent::MoveBarrelTowards()
 	auto DeltaRotatorTurret = AimAsRotator - TurretRotator;        //I think these two will be same
 
 	Barrel->Elevate(DeltaRotatorBarrel.Pitch);  //TODO remove magic number
+	if(DeltaRotatorTurret.Yaw <=180)
+	{
 	Turret->RotateTurret(DeltaRotatorTurret.Yaw);
+	}
+	else
+	{
+		Turret->RotateTurret(-DeltaRotatorTurret.Yaw);
+	}
+	
 }
 
 void UTankAimingComponent::Fire()

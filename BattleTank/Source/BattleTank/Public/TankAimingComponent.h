@@ -38,6 +38,8 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category = Setup)
 	TSubclassOf<AProjectile> ProjectileBlueprint;
 
+	EFiringStatus GetFiringStatus() const;
+
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;

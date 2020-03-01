@@ -20,12 +20,10 @@ void ATankAIController::Tick(float DeltaTime)
     
     if(!ensure(ControlledTankAimingComponent)){return ;}
     ControlledTankAimingComponent->AimAt(GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation());
-    ControlledTankAimingComponent->Fire();
     MoveToActor(GetWorld()->GetFirstPlayerController()->GetPawn(), AcceptanceRadius);
+    if(ControlledTankAimingComponent->GetFiringStatus() == EFiringStatus::Locked)
+    ControlledTankAimingComponent->Fire();
     
-    
-    
-
 }
 
 
