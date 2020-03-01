@@ -35,7 +35,11 @@ void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 	//UE_LOG(LogTemp, Warning, TEXT("I am tiiiiiiiiiiickiiiiiiing"));
-	if( (FPlatformTime::Seconds() - LastFireTime < ReloadTimeInSeconds) )
+	if(TotalAmmo <=0)
+	{
+		FiringState = EFiringStatus::NoAmmo;
+	}
+	else if( (FPlatformTime::Seconds() - LastFireTime < ReloadTimeInSeconds) )
 	{
 		FiringState = EFiringStatus::Reloading;
 	}
@@ -113,13 +117,21 @@ void UTankAimingComponent::MoveBarrelTowards()
 
 void UTankAimingComponent::Fire()
 {
-	//UE_LOG(LogTemp, Warning, TEXT("Firing %s"), *GetOwner()->GetName());
-	if(!ensure(Barrel && ProjectileBlueprint)){return ;}
-	if(FiringState != EFiringStatus::Reloading)
+	UE_LOG(LogTemp, Warning, TEXT("Firing %s"), *GetOwner()->GetName());
+	if(!ensure(Barrel)){return ;}
+	if(!ensure(ProjectileBlueprint)){return ;}
+	if((FiringState != EFiringStatus::Reloading)  && (TotalAmmo > 0) )
 	{
 		auto Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint, Barrel->GetSocketLocation(FName("Projectile")),Barrel->GetSocketRotation(FName("Projectile")));
 		if(!ensure(Projectile)){return ;}
 		Projectile->LaunchProjectile(LaunchSpeed);
 		LastFireTime = FPlatformTime::Seconds();
+		--TotalAmmo;
 	}
+	
+}
+
+int UTankAimingComponent::GetTotalAmmo() const
+{
+	return TotalAmmo;
 }

@@ -8,7 +8,7 @@
 #include "TankAimingComponent.generated.h"
 
 UENUM()
-enum class EFiringStatus : uint8 {Reloading, Aiming, Locked};
+enum class EFiringStatus : uint8 {Reloading, Aiming, Locked, NoAmmo};
 
 class UTankBarrel; //forward declaration
 class UTankTurret;
@@ -40,6 +40,9 @@ public:
 
 	EFiringStatus GetFiringStatus() const;
 
+	UFUNCTION(BlueprintCallable, Category = "Ammo")
+	int GetTotalAmmo() const;
+
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
@@ -58,5 +61,8 @@ private:
 
 	FVector AimDirection;
 	bool IsBarrelMoving();
+
+	UPROPERTY(EditDefaultsOnly, Category = "TotalAmmo")
+	int TotalAmmo = 10;
 	
 };
