@@ -13,15 +13,11 @@ void UTankTrack::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompo
     //UE_LOG(LogTemp, Warning, TEXT("Track ticking"));
 }    
 
+
 void UTankTrack::SetThrottle(float Throttle)
 {
-    CurrentThrottle = FMath::Clamp<float>( (CurrentThrottle + Throttle) ,-1, 1) ;
-}
-
-void UTankTrack::DriveTrack()
-{
     //UE_LOG(LogTemp, Warning, TEXT("%f: %s throttling at %f"), GetWorld()->GetTimeSeconds(), *GetName(), Throttle);
-    auto ForceApplied = GetForwardVector() * CurrentThrottle * TrackMaxDrivingForce ;
+    auto ForceApplied = GetForwardVector() * Throttle * TrackMaxDrivingForce ;
     auto ForceLocation = GetComponentLocation();
     auto TankRoot = Cast<UPrimitiveComponent>(GetOwner()->GetRootComponent());
     if(!ensure(TankRoot)){return ;}
@@ -41,8 +37,7 @@ void UTankTrack::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UP
 {
     UE_LOG(LogTemp, Warning, TEXT("I am hit"));
     ApplySidewaysForce();
-    DriveTrack();
-    CurrentThrottle = 0;
+    //CurrentThrottle = 0;
 }
 
 void UTankTrack::ApplySidewaysForce()
