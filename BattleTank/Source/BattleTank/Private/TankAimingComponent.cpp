@@ -117,7 +117,7 @@ void UTankAimingComponent::MoveBarrelTowards()
 
 void UTankAimingComponent::Fire()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Firing %s"), *GetOwner()->GetName());
+	//UE_LOG(LogTemp, Warning, TEXT("Firing %s"), *GetOwner()->GetName());
 	if(!ensure(Barrel)){return ;}
 	if(!ensure(ProjectileBlueprint)){return ;}
 	if((FiringState != EFiringStatus::Reloading)  && (TotalAmmo > 0) )

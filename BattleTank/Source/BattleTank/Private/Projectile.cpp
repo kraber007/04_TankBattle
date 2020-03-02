@@ -1,7 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
+#include "Kismet/GameplayStatics.h"
 #include "Projectile.h"
+
 
 // Sets default values
 AProjectile::AProjectile()
@@ -40,6 +41,15 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, U
 
 	FTimerHandle Timer;                //out parameter
 	GetWorld()->GetTimerManager().SetTimer(Timer, this, &AProjectile::OnTimerExpire, DestroyDelay, false);
+
+	UGameplayStatics::ApplyRadialDamage(
+		this,
+		ProjectileDamage,
+		GetActorLocation(),
+		ExplosionImpulse->Radius,  //for consistancy
+		UDamageType::StaticClass(),
+		TArray<AActor*>()              // empty array damage all actors, ignore no one
+	);
 }
 
 void AProjectile::OnTimerExpire()
