@@ -39,6 +39,10 @@ private:
 	float CrossHairLocationY = 0.3333;
 
 	float LaunchSpeed;
+	virtual void SetPawn(APawn* InPawn) override;
+
+	UFUNCTION()
+	void OnPossessedTankDeath();
 
 
 };

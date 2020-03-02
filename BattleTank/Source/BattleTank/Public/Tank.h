@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Tank.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FTankDelegate)   ;          // added by me to ...
 
 UCLASS()
 class BATTLETANK_API ATank : public APawn
@@ -24,11 +25,16 @@ public:
 
 	UFUNCTION(BluePrintPure)
 	float GetHealthPercent() const;
+
+	FTankDelegate OnDeath;
 	
 private:
+
+	virtual void BeginPlay() override;
+
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 	int32 StartingHealth = 103;
 
 	UPROPERTY(VisibleAnywhere, Category = "Health")
-	int32 CurrentHealth = StartingHealth;
+	int32 CurrentHealth;
 };

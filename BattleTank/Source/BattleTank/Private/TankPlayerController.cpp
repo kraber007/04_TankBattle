@@ -3,6 +3,8 @@
 #include "Engine/World.h"
 #include "Camera/PlayerCameraManager.h"
 #include "TankAimingComponent.h"
+#include "Tank.h"
+#include "GameFramework/PlayerController.h"
 #include "TankPlayerController.h"
 
 
@@ -55,7 +57,7 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVec
     FVector StartLocation = PlayerCameraManager->GetCameraLocation();
     FVector EndLocation = StartLocation + (LookDirection * LineTraceRange) ;
     FHitResult HitResult ;
-    if( GetWorld()->LineTraceSingleByChannel(HitResult, StartLocation, EndLocation, ECollisionChannel::ECC_Visibility) )
+    if( GetWorld()->LineTraceSingleByChannel(HitResult, StartLocation, EndLocation, ECollisionChannel::ECC_Camera) )
     {
         HitLocation = HitResult.Location ;
         return true;
@@ -65,5 +67,21 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVec
         HitLocation = FVector(0,0,0);
         return false;
     }
+}
+
+void ATankPlayerController::OnPossessedTankDeath()
+{
+    UE_LOG(LogTemp, Warning, TEXT(" problem in calling StartSpectatingOnly() I am not feeling so good..................."));
+    //StartSpectatingOnly();
+}
+
+void ATankPlayerController::SetPawn(APawn* InPawn)
+{
+    Super::SetPawn(InPawn);
+
+    if(!(InPawn)){return;}
+    auto PossessedTank = Cast<ATank>(InPawn);
+    if(!ensure(PossessedTank)){return;}
+    PossessedTank->OnDeath.AddUniqueDynamic(this, &ATankPlayerController::OnPossessedTankDeath);
 }
 

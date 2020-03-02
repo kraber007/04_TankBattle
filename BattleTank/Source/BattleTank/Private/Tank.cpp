@@ -9,6 +9,12 @@ ATank::ATank()
 	PrimaryActorTick.bCanEverTick = false;
 }
 
+void ATank::BeginPlay()
+{
+	Super::BeginPlay();
+	CurrentHealth = StartingHealth;
+}
+
  float ATank::TakeDamage
 (
 	float DamageAmount,
@@ -23,7 +29,8 @@ ATank::ATank()
 	UE_LOG(LogTemp, Warning, TEXT(" DamageAmount = %f , DamageToApply = %i , CurrentHealth = %i"),DamageAmount, DamageToApply, CurrentHealth);
 	if(CurrentHealth <=0)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Tank blew up"));
+		//UE_LOG(LogTemp, Warning, TEXT("Tank blew up"));
+		OnDeath.Broadcast();
 	}
 	return DamageToApply;
 }
