@@ -21,6 +21,9 @@ public:
 		class AController * EventInstigator,
 		AActor * DamageCauser
 	) override;
+
+	UFUNCTION(BluePrintPure)
+	float GetHealthPercent() const;
 	
 private:
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
