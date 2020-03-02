@@ -49,6 +49,10 @@ protected:
 	UPROPERTY(BlueprintReadOnly, Category = "FiringState")
 	EFiringStatus FiringState = EFiringStatus::Reloading;
 
+	UPROPERTY(BlueprintReadWrite, Category = Setup)
+	TSubclassOf<AProjectile> ProjectileBlueprint;
+
+
 public:
     UTankAimingComponent();
 	UTankBarrel* Barrel = nullptr; 
@@ -57,9 +61,6 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, Category = Firing)
 	float LaunchSpeed = 10000 ;
-
-	UPROPERTY(EditDefaultsOnly, Category = Setup)
-	TSubclassOf<AProjectile> ProjectileBlueprint;
 
 	FVector AimDirection;
 	bool IsBarrelMoving();
